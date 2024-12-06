@@ -1,6 +1,15 @@
 import Alpine from "alpinejs";
-window.alpine = Alpine;
+import persist from '@alpinejs/persist'
+import Recipes from './modules/Recipes.js';
+import Favorites from './modules/Favorites.js';
 
-// declare your Alpine components here...
+
+
+window.alpine = Alpine;
+Alpine.plugin(persist)
+Alpine.data('Recipes', Recipes);
+Alpine.data('Favorites', Favorites);
+
+
 
 Alpine.start();

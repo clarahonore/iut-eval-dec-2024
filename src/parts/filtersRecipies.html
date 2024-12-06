@@ -1,0 +1,60 @@
+<!-- filtres.html -->
+<div x-data="Filters()" x-init="initFilters()" class="mb-8 text-center">
+    <h3 class="text-2xl font-extrabold text-gray-800 mb-4">Filtres de Recherche</h3>
+
+    <!-- Filtre par difficulté -->
+    <div class="mb-4">
+        <h4 class="text-lg font-semibold">Difficulté</h4>
+        <select
+                x-model="selectedDifficulty"
+                @change="applyFilters()"
+                class="px-4 py-3 rounded-lg shadow-lg border border-gray-300 bg-white text-gray-700 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+        >
+            <template x-for="difficulty in difficulties" :key="difficulty">
+                <option :value="difficulty" x-text="difficulty"></option>
+            </template>
+        </select>
+    </div>
+
+    <!-- Filtre par temps de préparation -->
+    <div class="mb-4">
+        <h4 class="text-lg font-semibold">Temps de préparation</h4>
+        <select
+                x-model="selectedPreparationTime"
+                @change="applyFilters()"
+                class="px-4 py-3 rounded-lg shadow-lg border border-gray-300 bg-white text-gray-700 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+        >
+            <option value="tous">Tous</option>
+            <option value="rapide">Rapide (&lt;30 min)</option>
+            <option value="moyen">Moyen (30-60 min)</option>
+            <option value="long">Long (&gt;60 min)</option>
+        </select>
+    </div>
+
+    <!-- Filtre par catégorie -->
+    <div class="mb-4">
+        <h4 class="text-lg font-semibold">Catégorie</h4>
+        <select
+                x-model="selectedCategory"
+                @change="applyFilters()"
+                class="px-4 py-3 rounded-lg shadow-lg border border-gray-300 bg-white text-gray-700 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+        >
+            <option value="toutes">Toutes</option>
+            <option value="entrée">Entrée</option>
+            <option value="plat">Plat</option>
+            <option value="dessert">Dessert</option>
+        </select>
+    </div>
+
+    <!-- Barre de recherche par titre -->
+    <div class="mb-4">
+        <h4 class="text-lg font-semibold">Rechercher par titre</h4>
+        <input
+                x-model="searchQuery"
+                @input="applyFilters()"
+                type="text"
+                class="px-4 py-3 rounded-lg shadow-lg border border-gray-300 bg-white text-gray-700 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                placeholder="Rechercher une recette"
+        />
+    </div>
+</div>
