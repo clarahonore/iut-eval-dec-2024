@@ -15,7 +15,27 @@ export default function Recipes() {
         currentStep: 0,
         recipeCount: recipes.recipes.length,
 
+        favorites: [],
+        recipeId: null,
+
+        isFavorite(recipeId) {
+            return this.favorites.includes(recipeId);
+        },
+
+        toggleFavorite(recipeId) {
+            if (this.isFavorite(recipeId)) {
+                this.favorites = this.favorites.filter((id) => id !== recipeId);
+            } else {
+                this.favorites.push(recipeId);
+            }
+            localStorage.setItem("favorites", JSON.stringify(this.favorites));
+        },
+
         init() {
+
+            this.recipeId = this.recipeId;
+            this.favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
             this.applyFilters();
         },
 
