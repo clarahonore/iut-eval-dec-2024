@@ -13,50 +13,62 @@ export default function Recipes() {
         showModal: false,
         selectedRecipe: null,
         currentStep: 0,
+        recipeCount: recipes.recipes.length,
 
-        // Initialisation des recettes et des filtres
         init() {
-            this.recipesList = recipes.recipes;
-            this.filteredRecipes = this.recipesList;
+            this.applyFilters();
         },
 
-        // Appliquer tous les filtres
         applyFilters() {
-            this.filteredRecipes = this.recipesList.filter((recipe) => {
-                return (
-                    (this.selectedDifficulty === "toutes" || recipe.difficulty === this.selectedDifficulty) &&
-                    (this.selectedPreparationTime === "tous" ||
-                        (this.selectedPreparationTime === "rapide" && recipe.preparationTime < 30) ||
-                        (this.selectedPreparationTime === "moyen" && recipe.preparationTime >= 30 && recipe.preparationTime <= 60) ||
-                        (this.selectedPreparationTime === "long" && recipe.preparationTime > 60)
-                    ) &&
-                    (this.selectedCategory === "toutes" || recipe.category === this.selectedCategory) &&
-                    (this.searchQuery === "" || recipe.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
-                );
-            });
+            let filtered = this.recipesList;
+
+            // Filtrer par difficulté
+            if (this.selectedDifficulty !== "toutes") {
+                filtered = filtered.filter(recipe => recipe.difficulty === this.selectedDifficulty);
+            }
+
+            // Filtrer par temps de préparation
+            if (this.selectedPreparationTime !== "tous") {
+                if (this.selectedPreparationTime === "rapide") {
+                    filtered = filtered.filter(recipe => recipe.preparationTime < 30);
+                } else if (this.selectedPreparationTime === "moyen") {
+                    filtered = filtered.filter(recipe => recipe.preparationTime >= 30 && recipe.preparationTime <= 60);
+                } else if (this.selectedPreparationTime === "long") {
+                    filtered = filtered.filter(recipe => recipe.preparationTime > 60);
+                }
+            }
+
+            // Filtrer par catégorie
+            if (this.selectedCategory !== "toutes") {
+                filtered = filtered.filter(recipe => recipe.category === this.selectedCategory);
+            }
+
+            // Filtrer par titre (recherche)
+            if (this.searchQuery) {
+                filtered = filtered.filter(recipe => recipe.title.toLowerCase().includes(this.searchQuery.toLowerCase()));
+            }
+
+            this.filteredRecipes = filtered;
+            this.recipeCount = filtered.length;
         },
 
-        // Afficher les détails d'une recette dans la modale
         viewRecipe(recipe) {
             this.selectedRecipe = recipe;
             this.showModal = true;
             this.currentStep = 0;
         },
 
-        // Fermer la modale
         closeModal() {
             this.showModal = false;
             this.selectedRecipe = null;
         },
 
-        // Aller à l'étape suivante
         nextStep() {
             if (this.selectedRecipe && this.selectedRecipe.instructions && this.currentStep < this.selectedRecipe.instructions.length - 1) {
                 this.currentStep++;
             }
         },
 
-        // Revenir à l'étape précédente
         prevStep() {
             if (this.selectedRecipe && this.selectedRecipe.instructions && this.currentStep > 0) {
                 this.currentStep--;
