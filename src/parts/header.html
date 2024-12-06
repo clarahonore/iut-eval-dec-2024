@@ -1,0 +1,42 @@
+<header class="fixed top-0 left-0 w-full bg-white shadow-md md:relative md:flex md:items-center md:shadow-none z-50" x-data="{ menuOpen: false }">
+    <div class="flex justify-between items-center p-4 md:p-6 w-full">
+        <img src="./src/img/logo.png" alt="logo" class="w-[110px] md:hidden">
+
+        <button
+                class="md:hidden text-2xl text-gray-700 hover:text-blue-500 focus:outline-none transition duration-300"
+                @click="menuOpen = !menuOpen"
+                aria-label="Toggle menu"
+        >
+            ☰
+        </button>
+    </div>
+
+    <nav
+            class="absolute top-25 inset-x-0 bg-white shadow-lg md:shadow-none md:static md:flex md:items-center md:w-full md:justify-center transition-all duration-300 ease-in-out"
+            :class="{'hidden': !menuOpen, 'block': menuOpen}"
+    >
+        <ul class="flex flex-col md:flex-row md:items-center md:gap-8 text-center md:text-left mx-auto">
+            <li>
+                <a href="#accueil" class="py-4 px-6 text-lg font-medium text-gray-700 hover:text-blue-500 transition-colors duration-200">
+                    Accueil
+                </a>
+            </li>
+            <li>
+                <a href="#recettes" class="py-4 px-6 text-lg font-medium text-gray-700 hover:text-blue-500 transition-colors duration-200">
+                    Recettes
+                </a>
+            </li>
+            <img src="./src/img/logo.png" alt="logo" class="hidden md:block w-[110px] mx-4">
+            <li>
+                <a href="#contact" class="py-4 px-6 text-lg font-medium text-gray-700 hover:text-blue-500 transition-colors duration-200">
+                    Contact
+                </a>
+            </li>
+            <li>
+                <a href="#footer" class="py-4 px-6 text-lg font-medium text-gray-700 hover:text-blue-500 transition-colors duration-200">
+                    Footer
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
